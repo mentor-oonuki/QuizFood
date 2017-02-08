@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class QuizGenerator : MonoBehaviour {
+public class QuizGenerator {
 
     // 問題リスト格納先
     private List<Quiz> QuizList = new List<Quiz>();
@@ -18,7 +18,7 @@ public class QuizGenerator : MonoBehaviour {
 	private GameObject answerText4;
 
 
-    void Start () {
+    public void Initialize() {
         // クイズリスト読み込み
         CsvReader csvReader = new CsvReader();
         QuizList = csvReader.ReadFile(this.QuizFilename);
@@ -31,13 +31,6 @@ public class QuizGenerator : MonoBehaviour {
         this.answerText4 = GameObject.Find("AnswerText4");
 	}
 	
-	void Update () {
-		if (Input.GetMouseButtonDown (0)) {
-            Quiz quiz = QuizStore();
-            QuizShow(quiz);
-        }
-	}
-
     // 問題情報をランダムに取得
 	public Quiz QuizStore () {
         // 問題番号をランダムに指定
@@ -46,7 +39,7 @@ public class QuizGenerator : MonoBehaviour {
 	}
 
     // 問題をUIに表示
-    void QuizShow (Quiz quiz) {
+    public void QuizShow (Quiz quiz) {
         this.quizText.GetComponent<Text>().text = quiz.quiz;
 		this.answerText1.GetComponentInChildren <Text> ().text = quiz.ans[0];
 		this.answerText2.GetComponentInChildren <Text> ().text = quiz.ans[1];
